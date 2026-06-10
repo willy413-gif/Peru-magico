@@ -31,12 +31,6 @@ function CuentosPage() {
   
 
 
-  // Cada cuento = 2 páginas (imagen + texto) + 2 páginas de fin al final
-  // Total páginas = cuentos.length * 2 + 2
-  const totalPaginas  = cuentos.length * 2 + 2;
-  const cuentoVisible = Math.floor(paginaActual / 2);
-  const esPaginaFin   = paginaActual >= cuentos.length * 2;
-
   useEffect(() => {
     hablar(
         MENSAJES_SECCIONES.CUENTOS,
@@ -133,7 +127,7 @@ useEffect(() => {
           maxShadowOpacity={0.45}
         >
           {/* ── Páginas de cuentos ── */}
-          {cuentos.flatMap((cuento, i) => [
+          {cuentos.flatMap((cuento) => [
 
             /* Página izquierda — imagen */
             <div key={`img-${cuento.id}`} className="pagina pagina-imagen">
