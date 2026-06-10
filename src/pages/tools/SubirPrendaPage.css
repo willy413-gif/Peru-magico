@@ -1,0 +1,321 @@
+/* ==========================================================================
+   ESTILOS EXCLUSIVOS PARA EL REGISTRADOR/CALIBRADOR DE VESTIMENTAS
+   ========================================================================== */
+
+.subir-prenda-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px; 
+  min-height: calc(100vh - 40px);
+  gap: 20px;
+  font-family: 'Quicksand', sans-serif;
+  box-sizing: border-box;
+}
+
+/* --- CONTENEDOR VERTICAL QUE AGRUPA FILTRO SUPERIOR Y EL CANVAS --- */
+.avatar-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+/* FILTRO SUPERIOR PLANO Y PROFESIONAL */
+.gender-filter-top {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01);
+}
+
+.gender-btn {
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 2px solid #edf2f7;
+  background: #ffffff;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #4a5568;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.gender-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* Estado activo unificado y formal (Gris Slate corporativo profundo) */
+.gender-btn.active-admin-gender {
+  background: #2d3748;
+  color: #ffffff;
+  border-color: #2d3748;
+}
+
+/* --- CONTENEDOR DEL AVATAR (IZQUIERDA) --- */
+.calibrator-canvas-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc; 
+  border-radius: 24px;
+  border: 1px dashed #cbd5e1;
+  position: relative;
+  padding: 20px;
+  flex-grow: 1; /* Permite que tome el espacio restante hacia abajo */
+}
+
+.calibrator-avatar-container {
+  width: 260px;
+  height: 440px;
+}
+
+.calibrator-avatar-base {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+
+.calibrator-layer-draggable {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: move;
+}
+
+/* --- PANEL LATERAL DERECHO DE INGRESO --- */
+.calibrator-sidebar {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 25px;
+  box-shadow: -4px 6px -1px rgba(0, 0, 0, 0.03);
+  height: fit-content;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto; 
+  box-sizing: border-box;
+}
+
+.calibrator-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebar-section-title h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #2d3748;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-input-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.calibrator-sidebar input[type="text"],
+.calibrator-sidebar input[type="number"],
+.calibrator-sidebar select,
+.calibrator-sidebar textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: #0f172a;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.admin-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.admin-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.admin-flat-panel {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flat-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.badge-value {
+  background-color: #e2e8f0;
+  color: #334155;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.mini-lbl {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.btn-admin-action {
+  padding: 8px;
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #334155;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.btn-admin-action:hover {
+  background-color: #f1f5f9;
+}
+
+.input-locked {
+  background-color: #f1f5f9 !important;
+  color: #64748b !important;
+  cursor: not-allowed;
+  border-color: #e2e8f0 !important;
+}
+
+.btn-admin-submit {
+  background: #2d3748; 
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 5px;
+}
+
+.btn-admin-submit:hover {
+  background: #1a202c;
+}
+
+@media (max-width: 900px) {
+  .subir-prenda-layout {
+    grid-template-columns: 1fr;
+  }
+  .calibrator-sidebar {
+    max-height: none;
+  }
+}
+
+/* 🔥 NUEVO: Contenedor que maneja la escala de forma aislada */
+.draggable-scale-wrapper {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease-out; /* Suaviza el cambio de tamaño al presionar los botones */
+  transform-origin: center center;    /* Escala perfectamente desde el centro */
+  width: auto;
+  height: auto;
+}
+
+.draggable-box-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 140px;  
+  height: 140px;
+  cursor: move;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* La imagen escala de forma independiente sin romper el arrastre */
+.calibrator-layer-draggable {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.1s ease-out;
+  transform-origin: center center;
+  display: block;
+}
+
+.vp-center{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.vp-avatar-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.vp-avatar-frame{
+  position:relative;
+  width:260px;
+  height:440px;
+  overflow:visible;
+}
+
+.vp-avatar-base{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.vp-avatar-layer{
+  position:absolute;
+  left:0;
+  top:0;
+  cursor:move;
+}
+
+.vp-avatar-layer img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}

@@ -1,0 +1,229 @@
+.menu-juegos-page {
+  min-height: 100vh;
+  position: relative;
+
+  background-image: url("./page/Bienvenida.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    rgba(70, 70, 70, 0.25),
+    rgba(100, 100, 100, 0.35)
+  );
+
+  backdrop-filter: blur(4px);
+}
+
+.contenido-juegos {
+  position: relative;
+  z-index: 2;
+
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 40px 30px;
+}
+
+.bienvenida-juegos {
+  text-align: center;
+  max-width: 900px;
+  margin-bottom: 50px;
+
+  animation: aparecer 0.8s ease;
+}
+
+.bienvenida-juegos h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+
+  color: white;
+
+  margin-bottom: 15px;
+
+  text-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.bienvenida-juegos p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+
+  color: white;
+
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.juegos-grid {
+  width: 100%;
+  max-width: 1300px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(330px, 1fr));
+
+  gap: 30px;
+}
+
+.juego-card {
+  background: rgba(255, 255, 255, 0.95);
+
+  border-radius: 28px;
+
+  padding: 20px;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.15);
+
+  transition: all 0.35s ease;
+
+  position: relative;
+}
+
+.juego-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 8px;
+
+  background: linear-gradient(
+    90deg,
+    #ff9800,
+    #ff5722,
+    #ff4081,
+    #7c4dff
+  );
+}
+
+.juego-card:hover {
+  transform: translateY(-12px);
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.juego-imagen-container {
+  width: 100%;
+  height: 220px;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  margin-bottom: 20px;
+}
+
+.juego-imagen {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: transform 0.4s ease;
+}
+
+.juego-card:hover .juego-imagen {
+  transform: scale(1.08);
+}
+
+.juego-card h2 {
+  color: #1e293b;
+
+  font-size: 1.8rem;
+  font-weight: 800;
+
+  margin-bottom: 15px;
+}
+
+.juego-card p {
+  color: #64748b;
+
+  line-height: 1.7;
+
+  min-height: 80px;
+}
+
+.jugar-ahora {
+  display: inline-block;
+
+  margin-top: 15px;
+
+  color: #ff5722;
+
+  font-weight: 700;
+
+  font-size: 1.05rem;
+
+  transition: all 0.3s ease;
+}
+
+.juego-card:hover .jugar-ahora {
+  transform: translateX(8px);
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 992px) {
+  .bienvenida-juegos h1 {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contenido-juegos {
+    padding: 25px 15px;
+  }
+
+  .bienvenida-juegos h1 {
+    font-size: 2rem;
+  }
+
+  .bienvenida-juegos p {
+    font-size: 1rem;
+  }
+
+  .juegos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .juego-imagen-container {
+    height: 200px;
+  }
+
+  .juego-card h2 {
+    font-size: 1.5rem;
+  }
+}

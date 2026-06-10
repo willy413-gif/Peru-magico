@@ -1,0 +1,106 @@
+.bot-guia {
+  position: fixed;
+
+  bottom: 20px;
+  right: 20px;
+
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.bot-guia-centrado {
+  position: static !important;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+}
+
+/* Burbuja tipo chat */
+
+.chat-bubble {
+  position: relative;
+
+  max-width: 280px;
+
+  background: white;
+
+  padding: 14px 18px;
+
+  border-radius: 20px;
+
+  margin-bottom: 10px;
+
+  color: #333;
+
+  font-size: 14px;
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,.15);
+}
+
+/* Pico de la nube */
+
+.chat-bubble::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: -8px;
+  right: 25px;
+
+  width: 16px;
+  height: 16px;
+
+  background: white;
+
+  transform: rotate(45deg);
+}
+
+.bot-guia-centrado .chat-bubble::after {
+  left: 50%;
+
+  right: auto;
+
+  transform:
+    translateX(-50%)
+    rotate(45deg);
+}
+
+/* Avatar */
+
+.bot-avatar {
+  width: 110px;
+  height: auto;
+
+  display: block;
+
+  background: transparent;
+
+  border: none;
+
+  box-shadow: none;
+
+  cursor: pointer;
+
+  animation: flotar 3s ease-in-out infinite;
+}
+@keyframes flotar {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}

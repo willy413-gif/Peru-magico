@@ -1,0 +1,337 @@
+/* =============================================
+   ComidaPage — Juego de comidas del Perú
+   ============================================= */
+
+.comida-wrap {
+  position: fixed;
+  inset: 0;
+  font-family: 'DM Sans', 'Segoe UI', sans-serif;
+  z-index: 0;
+}
+
+/* ---------- Fondo ---------- */
+.comida-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.comida-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 6, 2, 0.68);
+  z-index: 1;
+}
+
+/* ---------- Contenido central ---------- */
+.comida-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* ---------- Puntos de progreso ---------- */
+.comida-dots {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+
+.comida-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.comida-dot--done {
+  background: rgba(255, 220, 140, 0.85);
+  border-color: rgba(255, 220, 140, 0.9);
+}
+
+.comida-dot--active {
+  background: #ffffff;
+  border-color: #ffffff;
+}
+
+/* ---------- Badge de región ---------- */
+.comida-region-badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 220, 140, 0.95);
+  border: 1px solid rgba(255, 220, 140, 0.45);
+  border-radius: 30px;
+  padding: 5px 18px;
+  margin-bottom: 1.2rem;
+  display: inline-block;
+  background: rgba(255, 220, 140, 0.08);
+}
+
+/* ---------- Pregunta ---------- */
+.comida-question {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.45;
+  max-width: 600px;
+  margin: 0 0 2.5rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* ---------- Grid de opciones (tarjetas) ---------- */
+.comida-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 560px;
+}
+
+/* ---------- Tarjeta de opción ---------- */
+.comida-card {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  border-radius: 18px;
+  padding: 22px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, transform 0.15s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.comida-card:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: rgba(255, 220, 140, 0.65);
+  transform: translateY(-4px);
+}
+
+.comida-card:disabled {
+  cursor: default;
+}
+
+/* Imagen / emoji de la tarjeta */
+.comida-card__img {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+}
+
+.comida-card__emoji {
+  font-size: 56px;
+  line-height: 1;
+  user-select: none;
+}
+
+.comida-card__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.3;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* Estados: correcto / incorrecto */
+.comida-card--correct {
+  background: rgba(34, 170, 90, 0.38) !important;
+  border-color: rgba(60, 220, 120, 0.80) !important;
+  transform: translateY(-4px) scale(1.04) !important;
+}
+
+.comida-card--wrong {
+  background: rgba(210, 55, 55, 0.32) !important;
+  border-color: rgba(220, 80, 80, 0.70) !important;
+}
+
+/* Marca de check / X */
+.comida-card__mark {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* ---------- Feedback breve ---------- */
+.comida-feedback {
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.90);
+  text-align: center;
+  max-width: 500px;
+  margin-top: 1.4rem;
+  min-height: 20px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+  animation: fadeIn 0.3s ease;
+}
+
+/* ---------- Pantalla de resultado ---------- */
+.comida-result-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 24px;
+  padding: 3rem 3rem 2.4rem;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.comida-result-title {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.4rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.comida-result-sub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.60);
+  margin: 0 0 2rem;
+}
+
+/* ---------- Estrellas ---------- */
+.comida-stars {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 1.8rem;
+}
+
+.comida-star {
+  font-size: 44px;
+  color: #ffd700;
+  opacity: 0.18;
+  transform: scale(0.65);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  display: inline-block;
+}
+
+.comida-star--lit {
+  opacity: 1;
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
+}
+
+.comida-score-num {
+  font-family: Georgia, serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.2rem;
+}
+
+.comida-score-msg {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0 0 2.2rem;
+}
+
+/* ---------- Botón replay ---------- */
+.comida-replay-btn {
+  background: rgba(255, 220, 140, 0.16);
+  border: 1px solid rgba(255, 220, 140, 0.55);
+  color: rgba(255, 220, 140, 0.96);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 40px;
+  border-radius: 40px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: background 0.2s;
+}
+
+.comida-replay-btn:hover {
+  background: rgba(255, 220, 140, 0.30);
+}
+
+/* ---------- Animación ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.comida-preloader {
+  display: flex;
+  gap: 0.8rem;
+  font-size: 2.4rem;
+}
+
+.comida-preloader span {
+  animation: bounceIcon 1s ease-in-out infinite;
+}
+.comida-preloader span:nth-child(2) { animation-delay: 0.15s; }
+.comida-preloader span:nth-child(3) { animation-delay: 0.30s; }
+.comida-preloader span:nth-child(4) { animation-delay: 0.45s; }
+
+@keyframes bounceIcon {
+  0%, 100% { transform: translateY(0);    opacity: 1;   }
+  50%       { transform: translateY(-12px); opacity: 0.6; }
+}
+
+.comida-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  height: 100%;
+}
+
+.comida-intro__text {
+  font-size: 1rem;
+  color: var(--color-text-secondary, #666);
+  letter-spacing: 0.03em;
+}
+
+.comida-back-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 4px 12px rgba(0,0,0,.18);
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform .2s ease;
+}
+
+.comida-back-btn:hover {
+  transform: scale(1.08);
+}
+
+.comida-back-btn:active {
+  transform: scale(0.95);
+}
