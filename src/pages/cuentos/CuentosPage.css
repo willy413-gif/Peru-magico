@@ -3,7 +3,48 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body, #root { width: 100%; height: 100%; overflow: hidden; }
 
-/* ── Escena ── */
+/* ══ OVERLAY ROTAR ══ */
+.rotate-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0d0820;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  padding: 32px;
+}
+.rotate-overlay__icon {
+  font-size: 3.5rem;
+  animation: girar-icono 2s ease-in-out infinite;
+}
+@keyframes girar-icono {
+  0%   { transform: rotate(0deg);  opacity: 1; }
+  40%  { transform: rotate(90deg); opacity: 0.6; }
+  60%  { transform: rotate(90deg); opacity: 0.6; }
+  100% { transform: rotate(0deg);  opacity: 1; }
+}
+.rotate-overlay__titulo {
+  font-family: "Cinzel", serif;
+  font-size: 1.1rem;
+  color: #c9983f;
+}
+.rotate-overlay__sub {
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+  max-width: 240px;
+}
+@media (orientation: portrait) and (max-width: 900px) {
+  .rotate-overlay { display: flex; }
+}
+
+/* ══ ESCENA ══ */
 .cuentos-page {
   width: 100vw;
   height: 100vh;
@@ -11,16 +52,15 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 14px;
   background-image: url("/page/Bienvenida.png");
   background-size: cover;
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
   position: fixed;
   inset: 0;
   font-family: "Baloo 2", sans-serif;
 }
-
 .cuentos-page::before {
   content: "";
   position: absolute;
@@ -29,20 +69,37 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   backdrop-filter: blur(3px);
 }
 
-/* ── Wrapper flotante ── */
+/* ══ WRAPPER LIBRO ══ */
 .libro-wrapper {
   position: relative;
   z-index: 2;
   animation: flotar 5s ease-in-out infinite;
-  filter: drop-shadow(0 28px 55px rgba(0,0,0,0.75));
+  filter: drop-shadow(0 18px 38px rgba(0,0,0,0.7));
 }
-
 @keyframes flotar {
   0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
+  50%       { transform: translateY(-8px); }
+}
+@media (max-height: 500px) {
+  .libro-wrapper { animation: none; }
 }
 
-/* ── Páginas generales ── */
+/* Escala del libro en móvil landscape:
+   zoom colapsa el espacio real (a diferencia de scale que lo mantiene)
+   → los botones quedan DEBAJO del libro, no encima */
+@media (max-height: 380px) and (orientation: landscape) {
+  .libro-wrapper { zoom: 0.65; }
+  .cuentos-page  { gap: 2px; }
+}
+@media (min-height: 381px) and (max-height: 460px) and (orientation: landscape) {
+  .libro-wrapper { zoom: 0.78; }
+  .cuentos-page  { gap: 6px; }
+}
+@media (min-height: 461px) and (max-height: 580px) and (orientation: landscape) {
+  .libro-wrapper { zoom: 0.90; }
+}
+
+/* ══ PÁGINAS BASE ══ */
 .pagina {
   width: 100%;
   height: 100%;
@@ -55,55 +112,62 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   );
 }
 
-/* ── Página imagen (izquierda) ── */
+/* ── Página imagen ── */
 .pagina-imagen { border-right: 2px solid #d4b483; }
-
 .pagina-imagen img {
   width: 100%;
-  height: 68%;
+  height: 66%;
   object-fit: cover;
   display: block;
 }
-
 .pagina-imagen-footer {
-  padding: 14px 18px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
+  height: 34%;
+  overflow: hidden;
 }
-
 .region-tag {
   display: inline-block;
   background: #c9983f;
   color: #fff8e7;
-  font-size: 0.65rem;
+  font-size: 0.61rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: 999px;
   align-self: flex-start;
+  flex-shrink: 0;
 }
-
 .pagina-imagen-caption {
   font-family: "Lora", serif;
   font-style: italic;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   color: #8a6a30;
-  line-height: 1.5;
+  line-height: 1.4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
-
 .pagina-imagen::after {
   content: "❧";
   position: absolute;
-  bottom: 12px;
-  right: 14px;
-  font-size: 1.4rem;
+  bottom: 8px;
+  right: 10px;
+  font-size: 1.1rem;
   color: #d4b483;
-  opacity: 0.4;
+  opacity: 0.38;
+  pointer-events: none;
 }
 
-/* ── Página texto (derecha) ── */
+/* ── Página texto ──
+   La clave: overflow:hidden en el padre
+   + flex:1 / min-height:0 en el hijo que hace scroll
+   = el scroll NUNCA se escapa del libro
+*/
 .pagina-texto {
   border-left: 1px solid #e8d9b5;
   display: flex;
@@ -113,7 +177,6 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   inset: 0;
   overflow: visible;
 }
-
 .pagina-ornamento {
   text-align: center;
   color: #c9983f;
@@ -122,7 +185,6 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   margin-bottom: 8px;
   flex-shrink: 0;
 }
-
 .pagina-titulo {
   font-family: "Cinzel", serif;
   font-size: 0.95rem;
@@ -132,8 +194,11 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   margin: 0 0 8px;
   line-height: 1.4;
   flex-shrink: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
-
 .pagina-divider {
   width: 40px;
   height: 1.5px;
@@ -142,44 +207,48 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   border-radius: 1px;
   flex-shrink: 0;
 }
-
 .pagina-contenido {
   font-family: "Lora", serif;
   font-size: 0.78rem;
   line-height: 1.9;
   color: #3a2e1c;
   text-align: justify;
-  display: block;
-  /* Altura fija: 440px libro - 38px padding top/bot - 22px ornamento - 28px titulo - 24px divider - 68px boton */
+
+  /* PC: altura fija original — el scroll funciona dentro de esta caja */
   height: 260px;
   max-height: 260px;
+
   overflow-y: scroll;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+
   scrollbar-width: thin;
   scrollbar-color: #d4b483 transparent;
   padding-right: 6px;
 }
 
-.pagina-contenido::-webkit-scrollbar {
-  width: 4px;
+/* Móvil landscape: la página es más chica por el scale,
+   usamos flex para que el contenido llene exactamente
+   lo que queda sin desbordarse */
+@media (orientation: landscape) and (max-width: 1024px) {
+  .pagina-texto {
+    overflow: hidden;
+  }
+  .pagina-contenido {
+    height: auto;
+    max-height: none;
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+  }
 }
-
-.pagina-contenido::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.pagina-contenido::-webkit-scrollbar-thumb {
-  background: #d4b483;
-  border-radius: 2px;
-}
-
-.pagina-contenido::-webkit-scrollbar-thumb:hover {
-  background: #b8955a;
-}
-
+.pagina-contenido::-webkit-scrollbar       { width: 3px; }
+.pagina-contenido::-webkit-scrollbar-track { background: transparent; }
+.pagina-contenido::-webkit-scrollbar-thumb { background: #d4b483; border-radius: 2px; }
+.pagina-contenido::-webkit-scrollbar-thumb:hover { background: #b8955a; }
 .pagina-contenido::first-letter {
   font-family: "Cinzel", serif;
-  font-size: 2.4rem;
+  font-size: 2.1rem;
   font-weight: 600;
   float: left;
   line-height: 0.75;
@@ -187,225 +256,154 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   color: #c9983f;
 }
 
-/* ── Flecha avanzar (dentro página texto) ── */
-.btn-flecha {
-  flex-shrink: 0;
-  align-self: flex-end;
-  margin-top: 10px;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, #ff8f00, #f57c00);
-  color: white;
-  font-size: 1.3rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 14px rgba(255,143,0,0.45);
-  transition: all 0.2s ease;
-}
-
-.btn-flecha:hover {
-  transform: scale(1.12);
-  box-shadow: 0 6px 20px rgba(255,143,0,0.6);
-}
-
-.btn-flecha:active { transform: scale(0.94); }
-
-.btn-flecha:disabled {
-  background: linear-gradient(135deg, #bdbdbd, #9e9e9e);
-  box-shadow: none;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* ── Página FIN ── */
+/* ══ PÁGINA FIN ══ */
 .pagina-fin {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  padding: 30px 24px;
+  gap: 12px;
+  padding: 22px 18px;
+  height: 100%;
+  overflow: hidden;
   background: #fffdf4;
   background-image: repeating-linear-gradient(
     0deg, transparent, transparent 27px,
     rgba(180,150,80,0.06) 27px, rgba(180,150,80,0.06) 28px
   );
 }
-
 .pagina-fin-emoji {
-  font-size: 3rem;
+  font-size: 2.5rem;
+  flex-shrink: 0;
   animation: rebote 1.2s ease-in-out infinite;
 }
-
 @keyframes rebote {
   0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-8px); }
+  50%       { transform: translateY(-7px); }
 }
-
 .pagina-fin h2 {
   font-family: "Cinzel", serif;
-  font-size: 1.3rem;
+  font-size: 1.05rem;
   color: #7a4f10;
   text-align: center;
   line-height: 1.4;
 }
-
 .pagina-fin p {
   font-family: "Lora", serif;
   font-style: italic;
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   color: #8a6a30;
   text-align: center;
-  line-height: 1.6;
+  line-height: 1.5;
 }
-
 .pagina-fin-estrellas {
   color: #c9983f;
-  font-size: 1.2rem;
-  letter-spacing: 6px;
+  font-size: 1.05rem;
+  letter-spacing: 5px;
 }
 
-/* ── Controles idioma debajo ── */
+/* ══ CONTROLES IDIOMA ══ */
 .controles-idioma {
   position: relative;
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
-
 .btn-idioma {
-  border: 2px solid rgba(255,255,255,0.3);
+  border: 2px solid rgba(255,255,255,0.28);
   background: rgba(255,255,255,0.1);
   backdrop-filter: blur(12px);
   color: rgba(255,255,255,0.85);
-  padding: 9px 22px;
+  padding: 8px 20px;
   border-radius: 999px;
   font-family: "Baloo 2", sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.83rem;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.2s ease;
+  touch-action: manipulation;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
 }
-
-.btn-idioma:hover {
-  background: rgba(255,255,255,0.18);
-  transform: translateY(-2px);
-}
-
+.btn-idioma:hover  { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
 .btn-idioma.activo {
   background: #c9983f;
   border-color: #c9983f;
   color: #fff8e7;
-  box-shadow: 0 4px 16px rgba(201,152,63,0.5);
+  box-shadow: 0 4px 14px rgba(201,152,63,0.45);
+}
+@media (max-height: 460px) {
+  .btn-idioma { padding: 5px 13px; font-size: 0.73rem; min-height: 34px; }
 }
 
-.cuento-indicador {
-  position: relative;
-  z-index: 2;
-  color: rgba(255,255,255,0.4);
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
+/* ══ CARGANDO ══ */
 .cargando {
   position: relative;
   z-index: 2;
   color: rgba(255,255,255,0.7);
   font-family: "Lora", serif;
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 1rem;
   animation: pulso 1.5s ease-in-out infinite;
 }
-
 @keyframes pulso {
   0%, 100% { opacity: 0.3; }
   50%       { opacity: 1; }
 }
 
-.acciones-cuentos {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.btn-continuar {
-  border: none;
-  cursor: pointer;
-  padding: 14px 34px;
-  border-radius: 999px;
-
-  font-size: 1rem;
-  font-weight: 700;
-
-  color: white;
-
-  background: linear-gradient(
-    135deg,
-    #ff9800,
-    #ff6f00
-  );
-
-  box-shadow:
-    0 8px 20px rgba(255,111,0,.35);
-
-  transition: .25s;
-}
-
-.btn-continuar:hover {
-  transform: translateY(-3px);
-}
-
-.btn-continuar:active {
-  transform: scale(.97);
-}
-
+/* ══ BTN NUEVA AVENTURA ══ */
 .acciones-cuentos {
   position: relative;
   z-index: 10;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   width: 100%;
-  margin-top: 10px;
+  margin-top: 4px;
 }
-
 .btn-continuar {
   border: none;
   cursor: pointer;
-
-  padding: 14px 36px;
+  padding: 11px 30px;
   border-radius: 999px;
-
-  font-size: 1rem;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 0.93rem;
   font-weight: 800;
-
   color: white;
-
-  background: linear-gradient(
-    135deg,
-    #ff9800,
-    #ff6f00
-  );
-
-  box-shadow:
-    0 8px 20px rgba(255,111,0,.35);
-
-  transition: all .25s ease;
+  background: linear-gradient(135deg, #ff9800, #ff6f00);
+  box-shadow: 0 6px 18px rgba(255,111,0,0.32);
+  transition: all .22s ease;
+  touch-action: manipulation;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-continuar:hover  { transform: translateY(-3px); }
+.btn-continuar:active { transform: scale(.97); }
+@media (max-height: 460px) {
+  .btn-continuar { padding: 6px 20px; font-size: 0.78rem; min-height: 34px; }
+  .acciones-cuentos { margin-top: 1px; }
 }
 
-.btn-continuar:hover {
-  transform: translateY(-3px);
+/* ══════════════════════════════════════════
+   BOT GUÍA — ocultar en ventana pequeña
+   Solo la versión fija; el centrado sigue visible
+══════════════════════════════════════════ */
+@media (max-height: 500px),
+       (max-width: 400px) {
+  .bot-guia:not(.bot-guia-centrado) {
+    display: none !important;
+  }
+}
+@media (orientation: landscape) and (max-height: 460px) {
+  .bot-guia:not(.bot-guia-centrado) {
+    display: none !important;
+  }
 }
 
-.btn-continuar:active {
-  transform: scale(.97);
+/* ══ ACCESIBILIDAD ══ */
+@media (prefers-reduced-motion: reduce) {
+  .libro-wrapper,
+  .pagina-fin-emoji,
+  .rotate-overlay__icon { animation: none; }
 }

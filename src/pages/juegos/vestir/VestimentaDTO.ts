@@ -6,7 +6,6 @@ export type TonoPiel = "CLARO" | "MORENO" | "OSCURO";
   { key: "TORSO",     label: "Torso",      icon: "👕" },
   { key: "PIERNAS",   label: "Piernas",    icon: "👖" },
   { key: "CALZADO",   label: "Calzado",    icon: "👞" },
-  { key: "ACCESORIO", label: "Accesorios", icon: "💍" },
 ];
 
 export const TONOS: { key: TonoPiel; label: string; color: string }[] = [

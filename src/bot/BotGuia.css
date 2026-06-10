@@ -104,3 +104,9 @@
     transform: translateY(0px);
   }
 }
+
+@media (max-height: 500px), (max-width: 400px) {
+  .bot-guia:not(.bot-guia-centrado) {
+    display: none !important;
+  }
+}

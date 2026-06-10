@@ -9,7 +9,6 @@ import { supabase } from "../../services/supabase";
 function MenuJuegosPage() {
   const { hablar } = useBot();
   const navigate = useNavigate();
-
   const [juegos, setJuegos] = useState<Juego[]>([]);
 
   useEffect(() => {
@@ -21,33 +20,27 @@ function MenuJuegosPage() {
       const { data, error } = await supabase
         .from("juegos")
         .select("*");
-
       if (error) {
         console.error(error);
         return;
       }
-
       setJuegos(data || []);
     };
-
     cargar();
   }, []);
 
   return (
     <div className="menu-juegos-page">
       <div className="overlay"></div>
-
       <div className="contenido-juegos">
         <div className="bienvenida-juegos">
           <h1>¿Qué juego quieres jugar?</h1>
-
           <p>
             Escoge una aventura y sigue aprendiendo
             sobre la cultura del Perú mientras te
             diviertes.
           </p>
         </div>
-
         <div className="juegos-grid">
           {juegos.map((juego) => (
             <div
@@ -62,10 +55,10 @@ function MenuJuegosPage() {
                   alt={juego.nombre}
                 />
               </div>
-
-              <h2>{juego.nombre}</h2>
-
-              <p>{juego.objetivo}</p>
+              <div className="juego-card-texto">
+                <h2>{juego.nombre}</h2>
+                <p>{juego.objetivo}</p>
+              </div>
             </div>
           ))}
         </div>
