@@ -21,24 +21,10 @@ function SubirPrendaPage() {
   const [escala, setEscala] = useState(1.0);
   const [zIndex, setZIndex] = useState(2);
 
-  // --- ESTADO DEL AVATAR DE FONDO ---
-  const [avatarBase, setAvatarBase] = useState<any>(null);
 
   // --- REFERENCIA DEL NODO DRAGGABLE (Evita el crash de React 18) ---
   const nodoDraggableRef = useRef<HTMLDivElement>(null);
 
-  // Cargar el avatar base correspondiente según el sexo seleccionado
-  useEffect(() => {
-    async function obtenerAvatar() {
-      const { data } = await supabase
-        .from("avatares")
-        .select("*")
-        .eq("sexo", sexo)
-        .maybeSingle();
-      setAvatarBase(data);
-    }
-    obtenerAvatar();
-  }, [sexo]);
 
   // Captura las coordenadas físicas exactas al soltar el arrastre
   const handleDragStop = (_e: any, data: any) => {
