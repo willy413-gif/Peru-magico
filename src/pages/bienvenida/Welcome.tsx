@@ -51,11 +51,11 @@ function Welcome() {
                 hablar(
                   MENSAJES_SECCIONES.JUGAR,
                   "es-PE",
-                  () => navigate("/cuentos")
+                  () => navigate("/secciones")
                 );
               }}
           >
-            ▶ JUGAR
+            ▶ PLAY
           </button>
 
           <div className="info-audio">

@@ -10,10 +10,13 @@ import { useLocation } from "react-router-dom";
 import { useBot } from "./bot/BotContext";
 import BotGuia from "./bot/BotGuia";
 import { BOT_CONFIG } from "./bot/BotConfig";
-import CuentosPage from "./pages/cuentos/CuentosPage";
-import MenuJuegosPage from "./pages/menu/MenuJuegosPage";
+import MenuJuegosPage from "./pages/menu-juegos/MenuJuegosPage";
 import ComidaPage from "./pages/juegos/comida/ComidaPage";
 import UbicarPage from "./pages/juegos/ubicar/UbicarPage";
+import MenuSeccionesPage from "./pages/menu-secciones/MenuSeccionesPage";
+import CuentosPageImg from "./pages/cuentos-imagenes/Cuentospage";
+import PracticaProtagonistas from "./pages/cuentos-imagenes/cuentos-juego/Practicaprotagonistas";
+
 
 function App() {
 
@@ -34,8 +37,18 @@ function App() {
         />
 
         <Route
+          path="/secciones"
+          element={<MenuSeccionesPage/>}
+        />
+
+        <Route
+          path="/cuentos-game"
+          element={<PracticaProtagonistas/>}
+        />
+
+        <Route
           path="/cuentos"
-          element={<CuentosPage />}
+          element={<CuentosPageImg />}
         />
 
         <Route

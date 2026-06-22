@@ -1,0 +1,303 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@600;700;800&display=swap");
+
+*, *::before, *::after { box-sizing: border-box; }
+
+.menu-secciones-page {
+  min-height: 100vh;
+  position: relative;
+  background-image: url("/fondos/fondo-menu-secciones.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  font-family: "Nunito", sans-serif;
+}
+
+
+.contenido-secciones {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 30px;
+}
+
+/* ── Bienvenida ── */
+.bienvenida-secciones {
+  text-align: center;
+  max-width: 760px;
+  margin-bottom: 56px;
+  animation: aparecer 0.8s ease;
+}
+
+.bienvenida-secciones h1 {
+  font-family: "Baloo 2", sans-serif;
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: white;
+  margin: 0 0 14px;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  line-height: 1.15;
+}
+
+.bienvenida-secciones h1 span {
+  color: #ffd54f;
+}
+
+.bienvenida-secciones p {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  margin: 0;
+}
+
+/* ── Grid de secciones ── */
+.secciones-grid {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* ── Tarjeta de sección ── */
+.seccion-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 32px;
+  padding: 0;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+  transition: all 0.35s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  font-family: inherit;
+}
+
+.seccion-card:hover {
+  transform: translateY(-14px) scale(1.02);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.3);
+}
+
+.seccion-card:active {
+  transform: translateY(-6px) scale(0.99);
+}
+
+/* Cabecera de color por sección */
+.seccion-icono-wrap {
+  width: 100%;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.seccion-card--cuentos .seccion-icono-wrap {
+  background: linear-gradient(135deg, #ff9800, #f57c00);
+}
+.seccion-card--canciones .seccion-icono-wrap {
+  background: linear-gradient(135deg, #ec407a, #ab47bc);
+}
+.seccion-card--juegos .seccion-icono-wrap {
+  background: linear-gradient(135deg, #42a5f5, #1e88e5);
+}
+
+.seccion-icono-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.25), transparent 60%);
+}
+
+.seccion-emoji {
+  font-size: 4.2rem;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.25));
+  transition: transform 0.35s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.seccion-card:hover .seccion-emoji {
+  transform: scale(1.15) rotate(-4deg);
+}
+
+/* Cuerpo de texto */
+.seccion-card-body {
+  padding: 26px 24px 30px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.seccion-card-body h2 {
+  font-family: "Baloo 2", sans-serif;
+  color: #1e293b;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0 0 12px;
+}
+
+.seccion-card-body p {
+  color: #64748b;
+  line-height: 1.65;
+  font-size: 0.95rem;
+  margin: 0;
+  flex: 1;
+}
+
+.seccion-card-flecha {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  align-self: center;
+}
+
+.seccion-card--cuentos .seccion-card-flecha    { color: #f57c00; }
+.seccion-card--canciones .seccion-card-flecha  { color: #ab47bc; }
+.seccion-card--juegos .seccion-card-flecha     { color: #1e88e5; }
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
+
+/* ── Tablet ── */
+@media (max-width: 992px) {
+  .bienvenida-secciones h1 { font-size: 2.6rem; }
+  .secciones-grid { grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .seccion-icono-wrap { height: 150px; }
+  .seccion-emoji { font-size: 3.6rem; }
+}
+
+/* ── Tablet pequeña: pasa a 1 columna ancha ── */
+@media (max-width: 860px) {
+  .secciones-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    gap: 20px;
+  }
+}
+
+/* ── Móvil portrait ── */
+@media (max-width: 768px) {
+  .contenido-secciones {
+    padding: 28px 16px 40px;
+  }
+
+  .bienvenida-secciones {
+    margin-bottom: 28px;
+  }
+
+  .bienvenida-secciones h1 {
+    font-size: 1.85rem;
+    line-height: 1.2;
+  }
+
+  .bienvenida-secciones p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .secciones-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 420px;
+  }
+
+  /* Card horizontal: icono izquierda, texto derecha */
+  .seccion-card {
+    flex-direction: row;
+    align-items: stretch;
+    border-radius: 22px;
+  }
+
+  .seccion-icono-wrap {
+    width: 110px;
+    min-width: 110px;
+    height: auto;
+  }
+
+  .seccion-emoji { font-size: 2.6rem; }
+
+  .seccion-card-body {
+    padding: 16px 16px 16px 18px;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .seccion-card-body h2 {
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+  }
+
+  .seccion-card-body p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .seccion-card-flecha {
+    align-self: flex-start;
+    margin-top: 10px;
+    font-size: 0.82rem;
+  }
+
+  .seccion-card:hover {
+    transform: none;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+  }
+  .seccion-card:active { transform: scale(0.98); }
+}
+
+/* ── Móvil muy pequeño ── */
+@media (max-width: 380px) {
+  .bienvenida-secciones h1 { font-size: 1.5rem; }
+  .bienvenida-secciones p  { font-size: 0.85rem; }
+
+  .seccion-icono-wrap { width: 88px; min-width: 88px; }
+  .seccion-emoji { font-size: 2.1rem; }
+
+  .seccion-card-body h2 { font-size: 1rem; }
+  .seccion-card-body p  { font-size: 0.78rem; -webkit-line-clamp: 2; }
+}
+
+/* ── Landscape móvil bajo ── */
+@media (max-height: 480px) and (orientation: landscape) {
+  .contenido-secciones { padding: 18px 20px; justify-content: flex-start; }
+  .bienvenida-secciones { margin-bottom: 16px; }
+  .bienvenida-secciones h1 { font-size: 1.5rem; }
+  .bienvenida-secciones p  { font-size: 0.82rem; }
+  .secciones-grid { grid-template-columns: repeat(3, 1fr); max-width: 700px; gap: 12px; }
+  .seccion-card { flex-direction: column; }
+  .seccion-icono-wrap { height: 70px; width: 100%; min-width: unset; }
+  .seccion-emoji { font-size: 1.8rem; }
+  .seccion-card-body { padding: 10px 12px; }
+  .seccion-card-body h2 { font-size: 0.95rem; margin-bottom: 4px; }
+  .seccion-card-body p  { font-size: 0.7rem; -webkit-line-clamp: 2; }
+  .seccion-card-flecha { display: none; }
+}
+
+/* ── Accesibilidad ── */
+@media (prefers-reduced-motion: reduce) {
+  .bienvenida-secciones { animation: none; }
+  .seccion-card, .seccion-emoji { transition: none; }
+}

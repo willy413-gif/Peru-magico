@@ -31,6 +31,9 @@ export const MENSAJES_SECCIONES = {
     "Has ingresado a la sección de vestimentas. Aquí podrás explorar la ropa tradicional de la Costa, Sierra y Selva, y vestir a tu avatar con prendas culturales.",
     
   JUEGO_UBICAR:
-    "¡Bienvenido al juego de identificar de que parte del Perú soy!, aqui vas a tener tres opciones que vas arrastrar a la region que pertenece "
+    "¡Bienvenido al juego de identificar de que parte del Perú soy!, aqui vas a tener tres opciones que vas arrastrar a la region que pertenece ",
+  
+  MENU_PRINCIPAL:
+    "¡Genial! Aquí encontrarás diferentes opciones que explorar, como cuentos, canciones y juegos para aprender de las regionees"
   
 };

@@ -1,0 +1,471 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap");
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { width: 100%; height: 100%; overflow: hidden; }
+
+/* ════════════════════════════════════════════
+   ESCENA — imagen de fondo a pantalla completa
+════════════════════════════════════════════ */
+
+.cuentos-page {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  inset: 0;
+  font-family: "Baloo 2", sans-serif;
+  overflow: hidden;
+}
+
+/* Imagen de la escena actual, cubre todo */
+.cuentos-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  transition: opacity 0.4s ease;
+  animation: zoomSutil 6s ease-in-out infinite alternate;
+}
+
+@keyframes zoomSutil {
+  from { transform: scale(1);    }
+  to   { transform: scale(1.04); }
+}
+
+/* Oscurecer para legibilidad del texto */
+.cuentos-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.5) 0%,
+    rgba(0,0,0,0.2) 30%,
+    rgba(0,0,0,0.3) 60%,
+    rgba(0,0,0,0.65) 100%
+  );
+}
+
+/* ── Badge de región (arriba, esquina) ── */
+.tarjeta-region-tag {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #7a4f10;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.28);
+  letter-spacing: 0.01em;
+  animation: aparecerBadge 0.4s ease;
+}
+
+@keyframes aparecerBadge {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Título del cuento (arriba, centrado) — solo 1ra escena ── */
+.tarjeta-titulo {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  max-width: 80vw;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 3px 12px rgba(0,0,0,0.6);
+  animation: aparecerTitulo 0.6s ease;
+}
+
+@keyframes aparecerTitulo {
+  from { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── Texto narrado — centro de la pantalla ── */
+.cuentos-contenido {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 24px 160px;
+}
+
+.tarjeta-texto-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  max-width: 720px;
+  width: 100%;
+}
+
+.tarjeta-texto {
+  font-family: "Lora", serif;
+  font-size: 1.7rem;
+  font-weight: 500;
+  line-height: 1.65;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  animation: fadeTexto 0.5s ease;
+  padding: 24px 32px;
+  background: rgba(10, 6, 20, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+@keyframes fadeTexto {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fila de progreso + botón avanzar */
+.progreso-fila {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Puntos de progreso (1-2-3-4 dentro del cuento) */
+.escena-dots {
+  display: flex;
+  gap: 10px;
+}
+
+.escena-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  border: 1.5px solid rgba(255,255,255,0.4);
+  transition: all 0.25s ease;
+}
+
+.escena-dot.activo {
+  background: #ffd54f;
+  border-color: #ffd54f;
+  transform: scale(1.3);
+  box-shadow: 0 0 10px rgba(255,213,79,0.6);
+}
+
+.escena-dot.hecho {
+  background: rgba(255,213,79,0.6);
+  border-color: rgba(255,213,79,0.6);
+}
+
+/* ════════════════════════════════════════════
+   CONTROLES — abajo, organizados en filas
+════════════════════════════════════════════ */
+
+.controles-inferior {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px 26px;
+}
+
+.cuento-indicador {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.fila-controles {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-idioma {
+  border: 2px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(14px);
+  color: rgba(255,255,255,0.92);
+  padding: 11px 26px;
+  border-radius: 999px;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-idioma:hover {
+  background: rgba(255,255,255,0.22);
+  transform: translateY(-2px);
+}
+
+.btn-idioma.activo {
+  background: #ffd54f;
+  border-color: #ffd54f;
+  color: #4a3300;
+  box-shadow: 0 4px 16px rgba(255,213,79,0.5);
+}
+
+.btn-continuar {
+  border: none;
+  cursor: pointer;
+  padding: 12px 30px;
+  border-radius: 999px;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: white;
+  background: linear-gradient(135deg, #ff9800, #ff6f00);
+  box-shadow: 0 6px 18px rgba(255,111,0,0.45);
+  transition: all 0.25s ease;
+}
+
+.btn-continuar:hover { transform: translateY(-2px); }
+.btn-continuar:active { transform: scale(0.97); }
+
+/* ── Pantalla de fin ── */
+.tarjeta-fin {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+  padding: 0 30px;
+}
+
+.tarjeta-fin-emoji {
+  font-size: 4rem;
+  animation: rebote 1.2s ease-in-out infinite;
+}
+
+@keyframes rebote {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+.tarjeta-fin h2 {
+  font-family: "Baloo 2", sans-serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 3px 12px rgba(0,0,0,0.6);
+}
+
+.tarjeta-fin p {
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.6;
+  max-width: 420px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.tarjeta-fin-estrellas {
+  color: #ffd54f;
+  font-size: 1.8rem;
+  letter-spacing: 10px;
+  text-shadow: 0 0 16px rgba(255,213,79,0.5);
+}
+
+/* ── Cargando ── */
+.cargando {
+  position: relative;
+  z-index: 2;
+  color: rgba(255,255,255,0.8);
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  animation: pulso 1.5s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes pulso {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 1; }
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .tarjeta-titulo { font-size: 1.2rem; top: 16px; max-width: 88vw; }
+  .tarjeta-region-tag { top: 16px; left: 16px; font-size: 0.8rem; padding: 7px 16px; }
+
+  .cuentos-contenido { padding: 76px 16px 150px; }
+  .tarjeta-texto { font-size: 1.2rem; padding: 16px 20px; }
+
+  .progreso-fila { gap: 12px; }
+  .btn-nav-escena { width: 40px; height: 40px; font-size: 1rem; }
+
+  .controles-inferior { padding: 14px 14px 20px; gap: 10px; }
+  .cuento-indicador { font-size: 0.82rem; }
+  .btn-idioma { padding: 9px 20px; font-size: 0.85rem; }
+  .btn-continuar { padding: 10px 24px; font-size: 0.85rem; }
+
+  .tarjeta-fin-emoji { font-size: 3rem; }
+  .tarjeta-fin h2 { font-size: 1.5rem; }
+  .tarjeta-fin p { font-size: 0.92rem; }
+}
+
+@media (max-width: 420px) {
+  .tarjeta-texto { font-size: 1.02rem; padding: 14px 16px; }
+  .fila-controles { gap: 8px; }
+  .btn-idioma { padding: 8px 14px; font-size: 0.76rem; }
+  .btn-continuar { padding: 8px 18px; font-size: 0.76rem; }
+  .progreso-fila { gap: 10px; }
+  .btn-nav-escena { width: 36px; height: 36px; font-size: 0.9rem; }
+  .tarjeta-region-tag { font-size: 0.74rem; padding: 6px 14px; }
+}
+
+@media (max-height: 600px) {
+  .cuentos-contenido { padding: 66px 16px 128px; }
+  .tarjeta-texto { font-size: 1.1rem; padding: 14px 18px; }
+  .controles-inferior { padding: 10px 14px 16px; gap: 8px; }
+  .btn-nav-escena { width: 38px; height: 38px; }
+}
+
+/* Landscape móvil bajo */
+@media (max-height: 460px) and (orientation: landscape) {
+  .cuentos-contenido { padding: 56px 16px 100px; }
+  .tarjeta-texto { font-size: 0.95rem; padding: 10px 14px; }
+  .tarjeta-titulo { font-size: 1.05rem; }
+  .btn-idioma { padding: 7px 16px; font-size: 0.78rem; }
+  .btn-continuar { padding: 8px 18px; font-size: 0.78rem; }
+  .controles-inferior { padding: 8px 12px 12px; gap: 6px; }
+  .btn-nav-escena { width: 34px; height: 34px; font-size: 0.85rem; }
+  .progreso-fila { gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cuentos-bg { animation: none; }
+  .tarjeta-fin-emoji { animation: none; }
+}
+
+
+/* ── Botones Atrás / Siguiente (navegación manual de escenas) ── */
+.btn-nav-escena {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.92);
+  color: #7a4f10;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-nav-escena:hover:not(:disabled) {
+  background: #ffd54f;
+}
+
+.btn-nav-escena--siguiente:hover:not(:disabled) {
+  transform: scale(1.1) translateX(2px);
+}
+
+.btn-nav-escena--atras:hover:not(:disabled) {
+  transform: scale(1.1) translateX(-2px);
+}
+
+.btn-nav-escena:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.btn-nav-escena:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: rgba(255,255,255,0.5);
+}
+
+
+/* Overlay de carga mientras la intro se narra */
+.preload-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+}
+
+.preload-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  color: #fff;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.preload-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.preload-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffd54f;
+  animation: pulsoDot 1.2s ease-in-out infinite;
+}
+
+.preload-dots span:nth-child(2) { animation-delay: 0.2s; }
+.preload-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulsoDot {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1.2); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

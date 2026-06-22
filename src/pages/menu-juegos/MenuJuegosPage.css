@@ -1,22 +1,13 @@
 .menu-juegos-page {
   min-height: 100vh;
   position: relative;
-  background-image: url("/page/Bienvenida.png");
+  background-image: url("/fondos/fondo-menu-juegos.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden;
 }
 
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    rgba(70, 70, 70, 0.25),
-    rgba(100, 100, 100, 0.35)
-  );
-  backdrop-filter: blur(4px);
-}
 
 .contenido-juegos {
   position: relative;

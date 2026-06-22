@@ -23,16 +23,6 @@ body,
   align-items: center;
 }
 
-.inicio-container::before {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  background: rgba(0, 0, 0, 0.18);
-
-  z-index: 1;
-}
 
 .inicio-overlay {
   position: relative;

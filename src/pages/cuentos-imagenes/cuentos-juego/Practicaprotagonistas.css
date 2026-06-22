@@ -1,0 +1,279 @@
+/* PracticaProtagonistas.css */
+
+.pp-wrapper {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-image: url('/fondos/fondo-cuentos-game.png');
+  background-size: cover;
+  background-position: center;
+  background-color: #1a3a5c;
+  font-family: sans-serif;
+}
+
+.pp-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.42);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+/* ── Contenido ─────────────────────────────── */
+.pp-contenido {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ── Progreso ──────────────────────────────── */
+.pp-progreso {
+  display: flex;
+  gap: 10px;
+}
+
+.pp-punto {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: background 0.3s;
+}
+.pp-punto--activo { background: #FFD700; }
+.pp-punto--hecho  { background: #4ade80; }
+
+/* ── Burbuja pregunta ──────────────────────── */
+.pp-burbuja {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 24px;
+  padding: 18px 28px;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+}
+
+.pp-burbuja p {
+  font-size: 21px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ── Grid opciones ─────────────────────────── */
+.pp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+
+.pp-opcion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.93);
+  border-radius: 18px;
+  padding: 12px 8px;
+  border: 4px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.2s, background 0.2s, opacity 0.2s;
+  user-select: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pp-opcion:hover:not(:disabled) {
+  transform: scale(1.05);
+  border-color: #FFD700;
+}
+
+.pp-opcion:disabled {
+  cursor: default;
+}
+
+.pp-opcion img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #ccc;
+  display: block;
+}
+
+.pp-opcion span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.pp-opcion--correcto {
+  border-color: #4ade80 !important;
+  background: #dcfce7 !important;
+  transform: scale(1.06);
+}
+
+.pp-opcion--incorrecto {
+  border-color: #f87171 !important;
+  background: #fee2e2 !important;
+}
+
+.pp-opcion--apagado {
+  opacity: 0.55;
+}
+
+/* ── Feedback ──────────────────────────────── */
+.pp-feedback {
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  min-height: 36px;
+  margin: 0;
+}
+
+/* ── Botón ─────────────────────────────────── */
+.pp-btn {
+  background: #FFD700;
+  color: #1e293b;
+  border: none;
+  border-radius: 50px;
+  padding: 13px 38px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.pp-btn:hover {
+  transform: scale(1.06);
+}
+
+/* ── Pantalla final ────────────────────────── */
+.pp-final {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.pp-estrellas {
+  font-size: 58px;
+  letter-spacing: 6px;
+  margin: 0;
+}
+
+.pp-puntaje-box {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 20px;
+  padding: 20px 44px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.pp-puntaje-label {
+  font-size: 17px;
+  color: #475569;
+  margin: 0;
+}
+
+.pp-puntaje-num {
+  font-size: 50px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* ── Responsive ────────────────────────────── */
+@media (max-width: 600px) {
+  .pp-wrapper {
+    padding: 16px;
+    border-radius: 0;
+    min-height: 100dvh;
+  }
+
+  .pp-burbuja {
+    padding: 14px 18px;
+  }
+
+  .pp-burbuja p {
+    font-size: 17px;
+  }
+
+  .pp-grid {
+    gap: 8px;
+  }
+
+  .pp-opcion {
+    padding: 8px 4px;
+    border-radius: 14px;
+    border-width: 3px;
+  }
+
+  .pp-opcion img {
+    height: 80px;
+    border-radius: 10px;
+  }
+
+  .pp-opcion span {
+    font-size: 12px;
+  }
+
+  .pp-feedback {
+    font-size: 18px;
+  }
+
+  .pp-btn {
+    font-size: 16px;
+    padding: 11px 28px;
+  }
+
+  .pp-estrellas {
+    font-size: 44px;
+  }
+
+  .pp-puntaje-box {
+    padding: 16px 28px;
+  }
+
+  .pp-puntaje-num {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 360px) {
+  .pp-opcion img {
+    height: 65px;
+  }
+
+  .pp-opcion span {
+    font-size: 11px;
+  }
+
+  .pp-burbuja p {
+    font-size: 15px;
+  }
+}
+
+/* ── Grid bloqueado mientras habla el bot ── */
+.pp-grid--bloqueado {
+  opacity: 0.5;
+  pointer-events: none;
+  filter: grayscale(40%);
+  transition: opacity 0.4s, filter 0.4s;
+}

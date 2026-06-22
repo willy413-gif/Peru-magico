@@ -31,6 +31,13 @@ function MenuJuegosPage() {
 
   return (
     <div className="menu-juegos-page">
+          <button
+            className="comida-back-btn"
+            onClick={() => navigate("/secciones")}
+            aria-label="Volver al menú"
+            >
+            ←
+        </button>
       <div className="overlay"></div>
       <div className="contenido-juegos">
         <div className="bienvenida-juegos">

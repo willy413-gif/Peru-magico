@@ -130,7 +130,7 @@ function CuentosPage() {
         hablar(
           "¡Qué gran aventura! Has recorrido la Costa, la Sierra y la Selva del Perú. Gracias por escuchar nuestros cuentos. Ahora vamos a seguir aprendiendo con una nueva actividad.",
           "es-PE",
-          () => { navigate("/menu-juegos"); }
+          () => { navigate("/secciones"); }
         );
       }
     });
@@ -230,7 +230,7 @@ function CuentosPage() {
             className="btn-continuar"
             onClick={() => {
               window.speechSynthesis.cancel();
-              navigate("/menu-juegos");
+              navigate("/secciones");
             }}
           >
             Nueva aventura
