@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./PracticaProtagonistas.css";
+import "./Practicaprotagonistas.css";
 import { PREGUNTAS, type Estado } from "./PracticaprotagonistaDTO";
 import { useBot } from "../../../bot/BotContext";
 import { narrar } from "../../../bot/BotService";

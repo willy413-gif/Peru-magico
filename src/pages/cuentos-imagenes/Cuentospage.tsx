@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./CuentosPage.css";
+import "./Cuentospage.css";
 import { CUENTOS } from "./cuentosDTO";
 import { useBot } from "../../bot/BotContext";
 import { MENSAJES_SECCIONES } from "../../bot/BotMensajes";
