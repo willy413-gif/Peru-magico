@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@600;700;800&display=swap");
 
-/* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body, #root { width: 100%; height: 100%; overflow: hidden; }
 
@@ -34,12 +33,13 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   position: relative;
   z-index: 2;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem 1.5rem;
-  gap: 0;
+  overflow-y: auto;
 }
 
 /* ── Botón volver ── */
@@ -73,15 +73,8 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   gap: 1.2rem;
 }
 
-.ubicar-preloader {
-  display: flex;
-  gap: 0.8rem;
-  font-size: 2.8rem;
-}
-
-.ubicar-preloader span {
-  animation: bounceIcon 1s ease-in-out infinite;
-}
+.ubicar-preloader { display: flex; gap: 0.8rem; font-size: 2.8rem; }
+.ubicar-preloader span { animation: bounceIcon 1s ease-in-out infinite; }
 .ubicar-preloader span:nth-child(2) { animation-delay: 0.15s; }
 .ubicar-preloader span:nth-child(3) { animation-delay: 0.30s; }
 .ubicar-preloader span:nth-child(4) { animation-delay: 0.45s; }
@@ -91,23 +84,13 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   50%       { transform: translateY(-14px); opacity: 0.6; }
 }
 
-.ubicar-intro__text {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.6);
-  letter-spacing: 0.03em;
-}
+.ubicar-intro__text { font-size: 1rem; color: rgba(255,255,255,0.6); letter-spacing: 0.03em; }
 
 /* ── Progreso ── */
-.ubicar-dots {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 1.6rem;
-}
+.ubicar-dots { display: flex; gap: 10px; margin-bottom: 1.4rem; flex-shrink: 0; }
 
 .ubicar-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  width: 10px; height: 10px; border-radius: 50%;
   background: rgba(255,255,255,0.2);
   border: 1px solid rgba(255,255,255,0.35);
   transition: background .3s, border-color .3s;
@@ -117,37 +100,39 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
 
 /* ── Badge región ── */
 .ubicar-region-badge {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255,220,140,0.95);
   border: 1px solid rgba(255,220,140,0.45);
   border-radius: 30px;
-  padding: 5px 18px;
-  margin-bottom: 1rem;
+  padding: 6px 20px;
+  margin-bottom: 0.9rem;
   display: inline-block;
-  background: rgba(255,220,140,0.08);
+  background: rgba(255,220,140,0.1);
+  flex-shrink: 0;
 }
 
 /* ── Pregunta ── */
 .ubicar-question {
   font-family: "Baloo 2", sans-serif;
-  font-size: 1.35rem;
+  font-size: clamp(1.15rem, 3vw, 1.35rem);
   font-weight: 800;
   color: #fff;
   text-align: center;
   line-height: 1.4;
-  max-width: 520px;
-  margin: 0 0 1.8rem;
+  max-width: 560px;
+  margin: 0 0 1.6rem;
   text-shadow: 0 2px 12px rgba(0,0,0,0.85);
+  flex-shrink: 0;
 }
 
-/* ── Zona de arrastre (destino) ── */
+/* ── Zona de destino (drop / tap-to-place) ── */
 .ubicar-drop-zone {
-  width: 200px;
-  height: 110px;
-  border-radius: 22px;
+  width: clamp(170px, 40vw, 220px);
+  height: clamp(110px, 22vw, 130px);
+  border-radius: 24px;
   border: 3px dashed rgba(255,255,255,0.35);
   background: rgba(255,255,255,0.07);
   backdrop-filter: blur(6px);
@@ -158,6 +143,7 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   gap: 6px;
   margin-bottom: 1.8rem;
   transition: border-color .2s, background .2s, transform .2s;
+  flex-shrink: 0;
 }
 
 .ubicar-drop-zone.hover-activo {
@@ -195,15 +181,21 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
 }
 
 .ubicar-drop-hint {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.45);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  text-align: center;
+  padding: 0 10px;
 }
 
-.ubicar-drop-emoji {
-  font-size: 2.4rem;
+.ubicar-drop-emoji { font-size: 2.4rem; animation: popIn .4s cubic-bezier(0.34,1.56,0.64,1); }
+
+.ubicar-drop-image {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
   animation: popIn .4s cubic-bezier(0.34,1.56,0.64,1);
 }
 
@@ -212,78 +204,109 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   to   { transform: scale(1) rotate(0deg);  opacity: 1; }
 }
 
-.ubicar-drop-label {
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: #fff;
-}
+.ubicar-drop-label { font-size: 0.82rem; font-weight: 800; color: #fff; }
 
-/* ── Opciones arrastrables ── */
+/* ════════════════════════════════════════════
+   OPCIONES — más grandes, soportan tap (móvil)
+   y drag (desktop) al mismo tiempo.
+════════════════════════════════════════════ */
 .ubicar-options {
   display: flex;
-  gap: 14px;
+  gap: 18px;
   justify-content: center;
   flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 .ubicar-card {
-  width: 112px;
-  height: 112px;
-  background: rgba(255,255,255,0.11);
-  border: 2px solid rgba(255,255,255,0.28);
-  border-radius: 20px;
+  width: clamp(110px, 26vw, 140px);
+  height: clamp(110px, 26vw, 140px);
+  background: rgba(255,255,255,0.12);
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-radius: 22px;
   backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  cursor: grab;
+  gap: 8px;
+  cursor: pointer;
   user-select: none;
-  transition: transform .18s, border-color .18s, box-shadow .18s, opacity .3s;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, opacity .3s ease;
 }
 
 .ubicar-card:hover {
   transform: translateY(-4px) scale(1.06);
-  border-color: rgba(255,255,255,0.6);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  border-color: rgba(255,255,255,0.65);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.4);
 }
 
+/* Estado: seleccionado por tap (móvil) — esperando una zona destino */
+.ubicar-card.seleccionado {
+  border-color: #ffd54f;
+  background: rgba(255,213,79,0.18);
+  box-shadow: 0 0 0 4px rgba(255,213,79,0.3), 0 10px 26px rgba(0,0,0,0.4);
+  animation: pulsoSeleccion 1.2s ease-in-out infinite;
+}
+
+@keyframes pulsoSeleccion {
+  0%, 100% { transform: scale(1.04); }
+  50%       { transform: scale(1.09); }
+}
+
+/* Estado: siendo arrastrado (desktop) */
 .ubicar-card.dragging {
   cursor: grabbing;
   transform: scale(1.12) rotate(3deg);
   border-color: #ffd54f;
   box-shadow: 0 14px 36px rgba(0,0,0,0.55);
   z-index: 99;
+  opacity: 0.85;
 }
 
 .ubicar-card.usado {
   opacity: 0;
   pointer-events: none;
+  transform: scale(0.8);
 }
 
-.ubicar-card__emoji { font-size: 2.2rem; line-height: 1; }
+.ubicar-card__emoji { font-size: clamp(2rem, 6vw, 2.6rem); line-height: 1; }
+
+.ubicar-card__image {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
 .ubicar-card__label {
-  font-size: 0.68rem;
+  font-size: clamp(0.66rem, 1.8vw, 0.74rem);
   font-weight: 800;
-  color: rgba(255,255,255,0.88);
+  color: rgba(255,255,255,0.92);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-align: center;
   padding: 0 4px;
 }
 
+/* Sutil indicación de "toca para elegir" en móvil */
+.ubicar-card__hint-tap {
+  display: none;
+}
+
 /* ── Feedback ── */
 .ubicar-feedback {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-style: italic;
-  color: rgba(255,255,255,0.88);
+  color: rgba(255,255,255,0.9);
   text-align: center;
-  max-width: 460px;
-  margin-top: 1.4rem;
+  max-width: 480px;
+  margin-top: 1.3rem;
   text-shadow: 0 1px 6px rgba(0,0,0,0.8);
   animation: fadeUp .3s ease;
   min-height: 22px;
+  flex-shrink: 0;
 }
 
 @keyframes fadeUp {
@@ -302,21 +325,19 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   background: rgba(0,0,0,0.55);
   backdrop-filter: blur(4px);
   animation: fadeIn .4s ease;
+  padding: 20px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .ubicar-result-card {
   background: rgba(18, 10, 40, 0.92);
   border: 1.5px solid rgba(255,213,79,0.35);
   border-radius: 28px;
-  padding: 2.8rem 3rem 2.4rem;
+  padding: 2.6rem 2.4rem 2.2rem;
   text-align: center;
   max-width: 380px;
-  width: 90%;
+  width: 100%;
   box-shadow: 0 30px 80px rgba(0,0,0,0.7);
   animation: cardPop .5s cubic-bezier(0.34,1.56,0.64,1);
 }
@@ -328,29 +349,19 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
 
 .ubicar-result-title {
   font-family: "Baloo 2", sans-serif;
-  font-size: 1.9rem;
+  font-size: clamp(1.5rem, 5vw, 1.9rem);
   font-weight: 900;
   color: #fff;
   margin: 0 0 0.3rem;
   text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
-.ubicar-result-sub {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.5);
-  margin: 0 0 1.8rem;
-}
+.ubicar-result-sub { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin: 0 0 1.8rem; }
 
-/* ── Estrellas ── */
-.ubicar-stars {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 1.4rem;
-}
+.ubicar-stars { display: flex; justify-content: center; gap: 16px; margin-bottom: 1.4rem; }
 
 .ubicar-star {
-  font-size: 3rem;
+  font-size: 2.6rem;
   color: #ffd700;
   opacity: 0.18;
   transform: scale(0.65);
@@ -364,19 +375,8 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   filter: drop-shadow(0 0 12px rgba(255,215,0,0.65));
 }
 
-.ubicar-score-num {
-  font-family: "Baloo 2", sans-serif;
-  font-size: 3.2rem;
-  font-weight: 900;
-  color: #fff;
-  margin: 0 0 0.2rem;
-}
-
-.ubicar-score-msg {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.5);
-  margin: 0 0 2rem;
-}
+.ubicar-score-num { font-family: "Baloo 2", sans-serif; font-size: clamp(2.4rem, 8vw, 3.2rem); font-weight: 900; color: #fff; margin: 0 0 0.2rem; }
+.ubicar-score-msg { font-size: 0.9rem; color: rgba(255,255,255,0.5); margin: 0 0 2rem; }
 
 .ubicar-replay-btn {
   background: rgba(255,220,140,0.14);
@@ -392,3 +392,51 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
   transition: background .2s;
 }
 .ubicar-replay-btn:hover { background: rgba(255,220,140,0.28); }
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .ubicar-content { padding: 90px 16px 24px; }
+  .ubicar-back-btn { width: 44px; height: 44px; font-size: 20px; top: 12px; left: 12px; }
+  .ubicar-dots { margin-bottom: 1.1rem; }
+  .ubicar-region-badge { font-size: 11px; padding: 5px 16px; }
+  .ubicar-question { font-size: 1.1rem; margin-bottom: 1.2rem; }
+  .ubicar-drop-zone { margin-bottom: 1.4rem; }
+  .ubicar-options { gap: 14px; }
+
+  /* En móvil mostramos el hint "toca para elegir" */
+  .ubicar-card__hint-tap {
+    display: block;
+    font-size: 0.58rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: none;
+    letter-spacing: 0;
+    margin-top: -2px;
+  }
+}
+
+@media (max-width: 420px) {
+  .ubicar-question { font-size: 1rem; }
+  .ubicar-drop-zone { width: 78vw; max-width: 220px; }
+  .ubicar-options { gap: 10px; }
+  .ubicar-result-card { padding: 2.2rem 1.8rem 2rem; }
+}
+
+@media (max-height: 600px) {
+  .ubicar-content { padding-top: 80px; justify-content: flex-start; }
+  .ubicar-question { margin-bottom: 1rem; }
+  .ubicar-drop-zone { margin-bottom: 1.1rem; }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+  .ubicar-content { padding: 70px 16px 16px; justify-content: flex-start; }
+  .ubicar-question { font-size: 1rem; margin-bottom: 0.9rem; }
+  .ubicar-drop-zone { width: 160px; height: 90px; margin-bottom: 1rem; }
+  .ubicar-card { width: 90px; height: 90px; }
+  .ubicar-card__emoji { font-size: 1.7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ubicar-card, .ubicar-star, .ubicar-preloader span { animation: none; transition: none; }
+}

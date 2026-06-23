@@ -2,11 +2,14 @@
    ComidaPage — Juego de comidas del Perú
    ============================================= */
 
+*, *::before, *::after { box-sizing: border-box; }
+
 .comida-wrap {
   position: fixed;
   inset: 0;
   font-family: 'DM Sans', 'Segoe UI', sans-serif;
   z-index: 0;
+  overflow: hidden;
 }
 
 /* ---------- Fondo ---------- */
@@ -31,19 +34,21 @@
   position: relative;
   z-index: 2;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem 1.5rem;
-  box-sizing: border-box;
+  overflow-y: auto;
 }
 
 /* ---------- Puntos de progreso ---------- */
 .comida-dots {
   display: flex;
   gap: 10px;
-  margin-bottom: 2rem;
+  margin-bottom: 1.6rem;
+  flex-shrink: 0;
 }
 
 .comida-dot {
@@ -67,55 +72,59 @@
 
 /* ---------- Badge de región ---------- */
 .comida-region-badge {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 220, 140, 0.95);
   border: 1px solid rgba(255, 220, 140, 0.45);
   border-radius: 30px;
-  padding: 5px 18px;
-  margin-bottom: 1.2rem;
+  padding: 6px 20px;
+  margin-bottom: 1rem;
   display: inline-block;
-  background: rgba(255, 220, 140, 0.08);
+  background: rgba(255, 220, 140, 0.1);
+  flex-shrink: 0;
 }
 
 /* ---------- Pregunta ---------- */
 .comida-question {
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 26px;
+  font-size: clamp(1.3rem, 3.2vw, 1.65rem);
   font-weight: 700;
   color: #ffffff;
   text-align: center;
-  line-height: 1.45;
-  max-width: 600px;
-  margin: 0 0 2.5rem;
+  line-height: 1.4;
+  max-width: 620px;
+  margin: 0 0 1.8rem;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.9);
+  flex-shrink: 0;
 }
 
-/* ---------- Grid de opciones (tarjetas) ---------- */
+/* ---------- Grid de opciones (tarjetas grandes) ---------- */
 .comida-options {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 20px;
   width: 100%;
-  max-width: 560px;
+  max-width: 760px;
+  flex-shrink: 0;
 }
 
 /* ---------- Tarjeta de opción ---------- */
 .comida-card {
   background: rgba(255, 255, 255, 0.10);
-  border: 1.5px solid rgba(255, 255, 255, 0.28);
-  border-radius: 18px;
-  padding: 22px 12px 16px;
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  border-radius: 22px;
+  padding: 18px 14px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  transition: background 0.18s, border-color 0.18s, transform 0.15s;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .comida-card:hover:not(:disabled) {
@@ -124,28 +133,40 @@
   transform: translateY(-4px);
 }
 
-.comida-card:disabled {
-  cursor: default;
+.comida-card:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
-/* Imagen / emoji de la tarjeta */
+.comida-card:disabled { cursor: default; }
+
+/* Imagen de la tarjeta — grande, ocupa casi todo el ancho de la card */
+.comida-card__img-wrap {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .comida-card__img {
-  width: 72px;
-  height: 72px;
-  border-radius: 12px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
 
 .comida-card__emoji {
-  font-size: 56px;
+  font-size: clamp(2.6rem, 7vw, 3.4rem);
   line-height: 1;
   user-select: none;
 }
 
 .comida-card__label {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: 700;
   color: #ffffff;
   text-align: center;
   line-height: 1.3;
@@ -164,23 +185,36 @@
   border-color: rgba(220, 80, 80, 0.70) !important;
 }
 
-/* Marca de check / X */
+/* Marca de check / X flotante sobre la imagen */
 .comida-card__mark {
-  font-size: 22px;
-  line-height: 1;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.35);
 }
+
+.comida-card { position: relative; }
 
 /* ---------- Feedback breve ---------- */
 .comida-feedback {
-  font-size: 14px;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
   font-style: italic;
-  color: rgba(255, 255, 255, 0.90);
+  color: rgba(255, 255, 255, 0.92);
   text-align: center;
-  max-width: 500px;
+  max-width: 560px;
   margin-top: 1.4rem;
   min-height: 20px;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
   animation: fadeIn 0.3s ease;
+  flex-shrink: 0;
 }
 
 /* ---------- Pantalla de resultado ---------- */
@@ -190,7 +224,7 @@
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 24px;
-  padding: 3rem 3rem 2.4rem;
+  padding: 3rem 2.6rem 2.4rem;
   text-align: center;
   max-width: 400px;
   width: 100%;
@@ -198,7 +232,7 @@
 
 .comida-result-title {
   font-family: Georgia, serif;
-  font-size: 30px;
+  font-size: clamp(1.6rem, 5vw, 1.9rem);
   font-weight: 700;
   color: #ffffff;
   margin: 0 0 0.4rem;
@@ -302,7 +336,7 @@
 
 .comida-intro__text {
   font-size: 1rem;
-  color: var(--color-text-secondary, #666);
+  color: rgba(255,255,255,0.7);
   letter-spacing: 0.03em;
 }
 
@@ -316,22 +350,110 @@
   border-radius: 50%;
   background: rgba(255,255,255,0.95);
   box-shadow: 0 4px 12px rgba(0,0,0,.18);
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
   cursor: pointer;
   z-index: 1000;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   transition: transform .2s ease;
 }
 
-.comida-back-btn:hover {
-  transform: scale(1.08);
+.comida-back-btn:hover { transform: scale(1.08); }
+.comida-back-btn:active { transform: scale(0.95); }
+
+/* ════════════════════════════════════════════
+   RESPONSIVE — tablet
+════════════════════════════════════════════ */
+@media (max-width: 860px) {
+  .comida-options { max-width: 600px; gap: 16px; }
+  .comida-card { border-radius: 18px; padding: 14px 10px 14px; }
 }
 
-.comida-back-btn:active {
-  transform: scale(0.95);
+/* ════════════════════════════════════════════
+   RESPONSIVE — móvil
+   En vez de comprimir 3 columnas, se apilan
+   verticalmente: imagen grande a la izquierda,
+   texto a la derecha — fácil de tocar.
+════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .comida-content { padding: 1.2rem 1rem; justify-content: flex-start; padding-top: 90px; }
+
+  .comida-back-btn { width: 44px; height: 44px; font-size: 20px; top: 12px; left: 12px; }
+
+  .comida-dots { margin-bottom: 1.1rem; }
+  .comida-region-badge { font-size: 11px; padding: 5px 16px; margin-bottom: 0.8rem; }
+  .comida-question { font-size: 1.15rem; margin-bottom: 1.3rem; max-width: 100%; }
+
+  .comida-options {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    max-width: 440px;
+  }
+
+  .comida-card {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    padding: 10px 16px 10px 10px;
+    gap: 14px;
+    border-radius: 18px;
+  }
+
+  .comida-card__img-wrap {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+  }
+
+  .comida-card__emoji { font-size: 2.1rem; }
+
+  .comida-card__label {
+    font-size: 0.95rem;
+    text-align: left;
+    flex: 1;
+  }
+
+  .comida-card--correct,
+  .comida-card--wrong { transform: none !important; }
+
+  .comida-card__mark {
+    position: static;
+    width: auto;
+    height: auto;
+    background: transparent;
+    box-shadow: none;
+    font-size: 22px;
+  }
+
+  .comida-feedback { font-size: 0.85rem; margin-top: 1.1rem; }
+
+  .comida-result-card { padding: 2.2rem 1.6rem 2rem; }
+  .comida-stars { gap: 10px; margin-bottom: 1.4rem; }
+  .comida-star { font-size: 36px; }
+  .comida-score-num { font-size: 42px; }
+}
+
+@media (max-width: 380px) {
+  .comida-question { font-size: 1.05rem; }
+  .comida-card__img-wrap { width: 56px; height: 56px; }
+  .comida-card__emoji { font-size: 1.8rem; }
+  .comida-card__label { font-size: 0.88rem; }
+}
+
+/* Pantallas bajas (landscape móvil) */
+@media (max-height: 480px) and (orientation: landscape) {
+  .comida-content { padding-top: 70px; justify-content: flex-start; }
+  .comida-question { font-size: 1.05rem; margin-bottom: 1rem; }
+  .comida-options { grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 680px; }
+  .comida-card { padding: 8px; gap: 6px; }
+  .comida-card__img-wrap { aspect-ratio: 1; }
+  .comida-card__emoji { font-size: 1.8rem; }
+  .comida-card__label { font-size: 0.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comida-preloader span,
+  .comida-star { transition: none; animation: none; }
 }

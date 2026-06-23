@@ -1,4 +1,3 @@
-
 export const SCORE_MSG = ["¡Sigue practicando!", "¡Buen intento!", "¡Muy bien!", "¡Perfecto!"];
 
 export type Phase = "intro" | "playing" | "result";
@@ -23,9 +22,9 @@ export const PREGUNTAS: Pregunta[] = [
     pregunta:
       "¿Qué plato típico de la costa peruana se prepara con pescado fresco marinado en limón y ají?",
     opciones: [
-      { label: "Ceviche",    emoji: "🐟" },
-      { label: "Pachamanca", emoji: "🍖" },
-      { label: "Juane",      emoji: "🌿" },
+      { label: "Ceviche",    emoji: "🐟", imagen: "/game-comida/ceviche.png" },
+      { label: "Pachamanca", emoji: "🍖", imagen: "/game-comida/pachamanca.png" },
+      { label: "Juane",      emoji: "🌿", imagen: "/game-comida/juane.png" },
     ],
     correcto: 0,
     feedback:
@@ -36,11 +35,11 @@ export const PREGUNTAS: Pregunta[] = [
     pregunta:
       "¿Cuál es el plato andino que se cocina bajo tierra con piedras calientes?",
     opciones: [
-      { label: "Sudado de mero", emoji: "🫕" },
-      { label: "Pachamanca",     emoji: "🪨" },
-      { label: "Tacacho",        emoji: "🍌" },
+      { label: "Pachamanca", emoji: "🍖", imagen: "/game-comida/pachamanca.png" },
+      { label: "Ceviche",    emoji: "🐟", imagen: "/game-comida/ceviche.png" },
+      { label: "Juane",      emoji: "🌿", imagen: "/game-comida/juane.png" },
     ],
-    correcto: 1,
+    correcto: 0,
     feedback:
       "¡Así es! La pachamanca es un plato ceremonial de la sierra, cocinado bajo tierra con piedras volcánicas.",
   },
@@ -49,11 +48,11 @@ export const PREGUNTAS: Pregunta[] = [
     pregunta:
       "¿Qué plato típico de la selva peruana es un tamal relleno envuelto en hojas de bijao?",
     opciones: [
-      { label: "Causa limeña",     emoji: "🥔" },
-      { label: "Adobo arequipeño", emoji: "🍲" },
-      { label: "Juane",            emoji: "🍃" },
+      { label: "Juane",      emoji: "🌿", imagen: "/game-comida/juane.png" },
+      { label: "Ceviche",    emoji: "🐟", imagen: "/game-comida/ceviche.png" },
+      { label: "Pachamanca", emoji: "🍖", imagen: "/game-comida/pachamanca.png" },
     ],
-    correcto: 2,
+    correcto: 0,
     feedback:
       "¡Excelente! El juane es el plato bandera de la selva: arroz con pollo envuelto en hoja de bijao.",
   },

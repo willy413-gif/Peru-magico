@@ -49,8 +49,6 @@ function ComidaPage() {
     setSelected(idx);
     if (isCorrect) setScore(newScore);
 
-    // ✅ Correcto → lee feedback completo
-    // ❌ Incorrecto → solo "Incorrecto." y avanza
     const feedbackMsg = isCorrect
       ? `¡Correcto! ${q.feedback}`
       : "Incorrecto.";
@@ -103,11 +101,11 @@ function ComidaPage() {
       <div className="comida-content">
 
         <button
-            className="comida-back-btn"
-            onClick={() => navigate("/menu-juegos")}
-            aria-label="Volver al menú"
-            >
-            ←
+          className="comida-back-btn"
+          onClick={() => navigate("/menu-juegos")}
+          aria-label="Volver al menú"
+        >
+          ←
         </button>
 
         {/* ── Intro: preloader animado ── */}
@@ -158,16 +156,18 @@ function ComidaPage() {
                     disabled={answered}
                     aria-label={op.label}
                   >
-                    {op.imagen ? (
-                      <img src={op.imagen} alt={op.label} className="comida-card__img" />
-                    ) : (
-                      <span className="comida-card__emoji" aria-hidden="true">
-                        {op.emoji}
-                      </span>
-                    )}
+                    <div className="comida-card__img-wrap">
+                      {op.imagen ? (
+                        <img src={op.imagen} alt={op.label} className="comida-card__img" />
+                      ) : (
+                        <span className="comida-card__emoji" aria-hidden="true">
+                          {op.emoji}
+                        </span>
+                      )}
+                      {isCorrect && <span className="comida-card__mark" aria-hidden="true">✅</span>}
+                      {isWrong   && <span className="comida-card__mark" aria-hidden="true">❌</span>}
+                    </div>
                     <span className="comida-card__label">{op.label}</span>
-                    {isCorrect && <span className="comida-card__mark" aria-hidden="true">✅</span>}
-                    {isWrong   && <span className="comida-card__mark" aria-hidden="true">❌</span>}
                   </button>
                 );
               })}
