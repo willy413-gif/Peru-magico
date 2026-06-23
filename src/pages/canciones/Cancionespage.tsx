@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBot } from "../../bot/BotContext";
 import { canciones, type Cancion } from "./cancionesDTO";
-import "./CancionesPage.css";
+import "./Cancionespage.css";
 
 type Idioma = "es" | "qu";
 
