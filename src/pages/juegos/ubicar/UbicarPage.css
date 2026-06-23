@@ -15,7 +15,7 @@ html, body, #root { width: 100%; height: 100%; overflow: hidden; }
 .ubicar-bg {
   position: absolute;
   inset: 0;
-  background-image: url("/page/Bienvenida.png");
+  background-image: url("/fondos/fondo-game-ubicacion.png");
   background-size: cover;
   background-position: center;
   z-index: 0;

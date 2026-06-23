@@ -16,6 +16,7 @@ import UbicarPage from "./pages/juegos/ubicar/UbicarPage";
 import MenuSeccionesPage from "./pages/menu-secciones/MenuSeccionesPage";
 import CuentosPageImg from "./pages/cuentos-imagenes/Cuentospage";
 import PracticaProtagonistas from "./pages/cuentos-imagenes/cuentos-juego/Practicaprotagonistas";
+import CancionesPage from "./pages/canciones/Cancionespage";
 
 
 function App() {
@@ -49,6 +50,11 @@ function App() {
         <Route
           path="/cuentos"
           element={<CuentosPageImg />}
+        />
+
+        <Route
+          path="/canciones"
+          element={<CancionesPage />}
         />
 
         <Route
