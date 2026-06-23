@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./CancionesPage.css";
+import "./Cancionespage.css";
 import { canciones, type Cancion } from "./cancionesDTO";
 import { useBot } from "../../bot/BotContext";
 import { MENSAJES_SECCIONES } from "../../bot/BotMensajes";
