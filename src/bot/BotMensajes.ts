@@ -6,7 +6,7 @@ export const MENSAJES_SECCIONES = {
     "Has ingresado a la herramienta de subir prendas. Aquí podrás registrar nuevas vestimentas para que formen parte del juego educativo.",
 
   CANCIONES:
-    "La sección de canciones estará disponible próximamente.",
+    "Esta es la seccion de canciones, donde podras escuchar y cantar cansioles, en español y quechua, vamos canta junto a mi",
 
   POEMAS:
     "La sección de poemas estará disponible próximamente.",
