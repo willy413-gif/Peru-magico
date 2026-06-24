@@ -1,6 +1,6 @@
 export const MENSAJES_SECCIONES = {
   HOME:
-    "Bienvenido a Perú Cultural. Aquí podrás conocer las regiones, tradiciones, vestimentas, canciones y poemas del Perú.",
+    "¡Hola! Bienvenido a Educa Kids Intercultural. Aquí aprenderás sobre las regiones, costumbres, vestimentas, canciones y tradiciones del Perú mientras juegas y te diviertes.",
 
   SUBIR_PRENDA:
     "Has ingresado a la herramienta de subir prendas. Aquí podrás registrar nuevas vestimentas para que formen parte del juego educativo.",
