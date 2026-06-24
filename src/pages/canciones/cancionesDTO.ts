@@ -30,14 +30,6 @@ export const canciones: Cancion[] = [
   {
 
     id: 3,
-    nombre: "Vaca Lola",
-    video: "/canciones-videos/vaca-lola.mp4",
-    audioQuechua: "/canciones-audios/vaca-lola.mp3",
-  },
-
-    {
-
-    id: 4,
     nombre: "Estrellita Donde Estas",
     video: "/canciones-videos/estrellita.mp4",
     audioQuechua: "/canciones-audios/estrellita.mp3",
