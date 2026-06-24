@@ -11,9 +11,9 @@ export const canciones: Cancion[] = [
   {
 
     id: 1,
-    nombre: "ABCD",
-    video: "/canciones-videos/abcd.mp4",
-    audioQuechua: "/canciones-audios/abcd.mp3",
+    nombre: "vaca lola",
+    video: "/canciones-videos/vaca-lola.mp4",
+    audioQuechua: "/canciones-audios/vaca-lola.mp3",
 
   },
 
