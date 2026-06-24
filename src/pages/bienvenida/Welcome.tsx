@@ -26,7 +26,7 @@ function Welcome() {
         <div className="inicio-overlay">
 
           <div className="titulo-principal">
-            Peru Mágico
+            Educa Kids Intercultural
           </div>
 
           <div className="subtitulo">
