@@ -149,7 +149,7 @@ function VestimentasPage() {
     setPrendasRegion([]);
     setRegionesCorrectas([]);
     setLitStars([false, false, false]);
-    hablar(`Viste al avatar con ropa de la ${REGIONES_JUEGO[0].label}. Empieza por la Cabeza.`, "es-PE");
+    hablar(`Viste al personaje con ropa de la ${REGIONES_JUEGO[0].label}. Empieza por la Cabeza.`, "es-PE");
   };
 
   const modoLibre = () => {
@@ -157,7 +157,7 @@ function VestimentasPage() {
     setCategoria("CABEZA");
     setPrendasEquipadas([]);
     setPrendasRegion([]);
-    hablar("¡Modo libre! Viste al avatar como quieras.");
+    hablar("¡Modo libre! Viste al personaje como quieras.");
   };
 
   const estaEquipada = (id: number) => prendasEquipadas.some((p: any) => p.id === id);
