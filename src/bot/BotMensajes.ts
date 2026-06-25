@@ -28,7 +28,7 @@ export const MENSAJES_SECCIONES = {
     "¡Bienvenido al juego de gastronomia del Perú! Prepárate para responder tres preguntas express. Descubre qué plato típico se esconde en cada región eligiendo entre tres divertidas opciones. ¡A jugar, aprender y divertirse en grande!",
 
   JUEGO_VESTIMENTAS:
-    "Has ingresado a la sección de vestimentas. Aquí podrás explorar la ropa tradicional de la Costa, Sierra y Selva, y vestir a tu avatar con prendas culturales.",
+    "Has ingresado a la sección de vestimentas. Aquí podrás explorar la ropa tradicional de la Costa, Sierra y Selva, y vestir a tu personaje con prendas culturales.",
     
   JUEGO_UBICAR:
     "¡Bienvenido al juego de identificar de que parte del Perú soy!, aqui vas a tener tres opciones que vas arrastrar a la region que pertenece ",
