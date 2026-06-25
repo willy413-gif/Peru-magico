@@ -34,6 +34,6 @@ export const MENSAJES_SECCIONES = {
     "¡Bienvenido al juego de identificar de que parte del Perú soy!, aqui vas a tener tres opciones que vas arrastrar a la region que pertenece ",
   
   MENU_PRINCIPAL:
-    "¡Genial! Aquí encontrarás diferentes opciones que explorar, como cuentos, canciones y juegos para aprender de las regionees"
+    "¡Genial! Aquí encontrarás diferentes opciones que explorar, como cuentos, canciones y juegos para aprender de las regiones"
   
 };

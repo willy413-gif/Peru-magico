@@ -45,7 +45,7 @@ function VestimentasPage() {
       "es-PE",
       () => {
         setPhase("playing");
-        hablar(`Viste al avatar con ropa típica de la ${REGIONES_JUEGO[0].label}. Empieza por la Cabeza.`, "es-PE");
+        hablar(`Viste al personaje con ropa típica de la ${REGIONES_JUEGO[0].label}. Empieza por la Cabeza.`, "es-PE");
       },
     );
   }, []);
