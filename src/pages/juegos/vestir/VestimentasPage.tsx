@@ -85,7 +85,7 @@ function VestimentasPage() {
       const regionPrenda   = (prenda.region || "").toUpperCase();
       const regionEsperada = regionActual.key;
       if (regionPrenda && regionPrenda !== regionEsperada) {
-        mostrarToast(`"${prenda.nombre}" es de la ${prenda.region} — pero puede servir 🤔`, "err");
+        mostrarToast(`"${prenda.nombre}" es de la ${prenda.region} — pero puede servir `, "err");
       } else if (regionPrenda === regionEsperada) {
         mostrarToast(`✅ "${prenda.nombre}" es típico de la ${regionActual.label}`, "ok");
       } else {
@@ -124,7 +124,7 @@ function VestimentasPage() {
       setPrendasEquipadas([]);
       setPrendasRegion([]);
       hablar(
-        `Ahora viste al avatar con ropa de la ${REGIONES_JUEGO[nextIdx].label}. Empieza por la Cabeza.`,
+        `Ahora viste al personaje con ropa de la ${REGIONES_JUEGO[nextIdx].label}. Empieza por la Cabeza.`,
         "es-PE",
       );
     }
