@@ -1,13 +1,13 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../../services/supabase";
 import "./VestimentasPage.css";
 import { useBot } from "../../../bot/BotContext";
 import { MENSAJES_SECCIONES } from "../../../bot/BotMensajes";
 import {
-  CATEGORIAS, TONOS, REGIONES_JUEGO, SCORE_MSG,
-  type Categoria, type TonoPiel, type Phase,
+  CATEGORIAS, TONOS, REGIONES_JUEGO, SCORE_MSG, vestimentas as VESTIMENTAS_DATA,
+  type Categoria, type TonoPiel, type Phase, type VestimentaDto,
 } from "./VestimentaDTO";
 
 const CATEGORIAS_KEYS: Categoria[] = ["CABEZA", "TORSO", "PIERNAS", "CALZADO"];
@@ -21,7 +21,7 @@ function VestimentasPage() {
 
   const [regionIdx,          setRegionIdx]          = useState(0);
   const [categoria,          setCategoria]          = useState<Categoria>("CABEZA");
-  const [vestimentas,        setVestimentas]        = useState<any[]>([]);
+  const [vestimentas,        setVestimentas]        = useState<VestimentaDto[]>([]);
   const [prendasEquipadas,   setPrendasEquipadas]   = useState<any[]>([]);
   const [regionesCorrectas,  setRegionesCorrectas]  = useState<boolean[]>([]);
   const [litStars,           setLitStars]           = useState([false, false, false]);
@@ -50,11 +50,13 @@ function VestimentasPage() {
     );
   }, []);
 
-  /* ── Cargar prendas al cambiar categoría ── */
+  /* ── Cargar prendas al cambiar categoría (desde el DTO local) ── */
   useEffect(() => {
     if (phase !== "playing" && phase !== "libre") return;
-    supabase.from("vestimentas").select("*").eq("categoria", categoria)
-      .then(({ data }) => setVestimentas(data || []));
+    const filtradas = VESTIMENTAS_DATA.filter(
+      (v) => v.categoria === categoria && v.activo,
+    );
+    setVestimentas(filtradas);
   }, [categoria, phase]);
 
   const mostrarToast = useCallback((msg: string, tipo: "ok" | "err") => {

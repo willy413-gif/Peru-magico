@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useBot } from "../../bot/BotContext";
 import "./MenuJuegosPage.css";
 import { MENSAJES_SECCIONES } from "../../bot/BotMensajes";
-import type { Juego } from "./JuegosDto";
-import { supabase } from "../../services/supabase";
+import { JUEGOS, type Juego } from "./JuegosDto";
 
 function MenuJuegosPage() {
   const { hablar } = useBot();
@@ -17,21 +16,14 @@ function MenuJuegosPage() {
 
   useEffect(() => {
     const cargar = async () => {
-      const { data, error } = await supabase
-        .from("juegos")
-        .select("*");
-      if (error) {
-        console.error(error);
-        return;
-      }
-      setJuegos(data || []);
+      setJuegos(JUEGOS || []);
     };
     cargar();
   }, []);
 
   return (
     <div className="menu-juegos-page">
-          <button
+        <button
             className="comida-back-btn"
             onClick={() => navigate("/secciones")}
             aria-label="Volver al menú"
